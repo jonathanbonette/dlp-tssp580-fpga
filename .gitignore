@@ -1,0 +1,9 @@
+# Ignorar diretórios
+.settings/
+work/
+
+# Ignorar arquivos
+.library_mapping.xml
+.project
+vsim.wlf
+wave.ps
