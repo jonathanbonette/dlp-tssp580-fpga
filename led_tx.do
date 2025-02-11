@@ -23,7 +23,7 @@ add wave -radix binary -label rst /rst
 add wave -radix binary -label led_out /led_out
 
 # Simula até 500ns
-run 500ns
+run 500us
 
 wave zoomfull
 write wave wave.ps

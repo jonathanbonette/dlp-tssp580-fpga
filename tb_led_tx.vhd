@@ -49,7 +49,6 @@ begin
     wait for 500 us;
     
     -- Encerra a simulação
-    assert false report "Fim da simulação" severity failure;
   end process;
 
 end test;
