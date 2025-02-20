@@ -4,12 +4,12 @@ vlib work
 # Compila projeto: todos os aquivo. Ordem é importante
 # Sempre colocar todos os arquivos .vdh aqui em ordem
 vcom led_tx.vhd
-vcom tb_led_tx_sensor_sim.vhd
+vcom tb_noise.vhd
 
 # Simula
 # Sempre mudar a entity aqui caso o nome da entity e arquivo forem diferentes
 # ns é a resolução, portanto quanto < escala de tempo + lento fica
-vsim -voptargs="+acc" -t ns work.tb_led_tx_sensor_sim
+vsim -voptargs="+acc" -t ns work.tb_noise
 
 # Mostra forma de onda    
 view wave
