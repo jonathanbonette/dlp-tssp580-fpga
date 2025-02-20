@@ -33,8 +33,7 @@ begin
 ----------------------------------------------------------------
   dut_filter: entity work.filter
     generic map(
-      THRESHOLD => 10,
-      MAX_COUNT => 20
+      THRESHOLD => 10
     )
     port map(
       clk             => clk,
