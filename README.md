@@ -34,7 +34,9 @@ Implementação da lógica para gerar o sinal modulado (burst) com uma portadora
 - Desenvolvimento do módulo [led_tx.vhd](vscode/led_tx.vhd).<br>
 - Simulação com o testbench [tb_led_tx.vhd](vscode/tb_led_tx.vhd).
 - Execução do script [tb_led_tx.do](vscode/tb_led_tx.do).
-- **todo: adicionar foto do burst**
+<p align="center">
+  <img src="images/modelsim_burst.png" align="center" width="600" alt="Burst">
+</p>
 
 **Etapa 2 – Síntese do LED no FPGA e Testes de Bancada:** <br>
 Implementação do arquivo top-level para a síntese e implementação do sistema no FPGA DE10-Lite. Integra os módulos do LED, sensor e filtro, e mapeia os sinais para os pinos físicos.
@@ -53,9 +55,16 @@ Implementação do arquivo top-level para a síntese e implementação do sistem
 **Etapa 3 – Simulação do Sensor e dos Ruídos:** <br>
 Implementação dos testbenchs para simular a resposta do sensor IR ao sinal de burst e simular ruídos no sinal do sensor, permitindo a avaliação do comportamento em condições adversas.
 
-Desenvolvimento dos testbenches [tb_sensor.vhd](vscode/tb_sensor.vhd) e [tb_noise.vhd](vscode/tb_noise.vhd) para simular a resposta do sensor ao burst e aos ruídos e execução dos scripts [tb_noise.vhd](vscode/tb_noise.do) e [tb_noise.vhd](vscode/tb_noise.do). 
-- **todo: adicionar foto da resposta ao led**
-- **todo: adicionar foto do noise**
+- Desenvolvimento do testbench [tb_sensor.vhd](vscode/tb_sensor.vhd) para simular a resposta do sensor ao burst e seu script de execução [tb_sensor.do](vscode/tb_sensor.do).
+<p align="center">
+  <img src="images/modelsim_sensor.png" align="center" width="600" alt="Sensor">
+</p>
+
+- Desenvolvimento do testbench [tb_noise.vhd](vscode/tb_noise.vhd) para simular os ruídos e execução dos scripts e seu script de execução [tb_noise.do](vscode/tb_noise.do). 
+
+<p align="center">
+  <img src="images/modelsim_noise.png" align="center" width="600" alt="Noise">
+</p>
 
 **Etapa 4 – Implementação do Filtro Digital:** <br>
 Implementação do filtro digital baseado em contagem tem por objetivo eliminar os ruídos do sensor.
@@ -63,14 +72,9 @@ Implementação do filtro digital baseado em contagem tem por objetivo eliminar 
 - Desenvolvimento do módulo [filter.vhd](vscode/filter.do) com a lógica de filtro por contagem.
 - Simulação com o testbench [tb_filter.vhd](vscode/tb_filter.vhd).
 - Execução do script [tb_filter.do](vscode/tb_filter.do).
-- - **todo: adicionar foto do filtro**
-
-Este repositório contém todos os arquivos de código, scripts de simulação e documentação do projeto, proporcionando uma visão completa desde a simulação em ambiente de desenvolvimento (VSCode/ModelSim/Quartus) até a implementação real em hardware.<br>
-
-
-
-
-
+<p align="center">
+  <img src="images/modelsim_filter.png" align="center" width="600" alt="Filter">
+</p>
 
 
 
