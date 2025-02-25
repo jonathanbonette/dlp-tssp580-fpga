@@ -74,9 +74,14 @@ Este repositório contém todos os arquivos de código, scripts de simulação e
 
 **Cronograma:**<br>
 <br>1- fazer a simulação no vscode do led
-<br>1.1- main.vhd
-<br>1.2- tb_main.vhd
-<br>1.3- do.do
+<br>1.1- led_tx.vhd
+<br>1.2- tb_led_tx.vhd
+<br>1.3- tb_led_tx.do
+
+Primeiramente implementamos módulo led_tx.vhd para gerar uma portadora de 38 kHz e controlar o burst do LED, permitindo que o sinal seja transmitido.
+O código led_tx.vhd gera um sinal infravermelho modulado a 38 kHz, ativando e desativando o LED IR em períodos específicos. Ele funciona com dois contadores: o primeiro gera a portadora de 38 kHz alternando o sinal a cada 13 ciclos, garantindo a frequência correta. O segundo contador controla a modulação do sinal, ativando o LED por 500 ms e desligando pelos próximos 500 ms. 
+
+![Captura de tela 2025-02-25 150307](https://github.com/user-attachments/assets/3870c294-ac85-4bae-87cf-3780f8b6246b)
 
 <br>2- fazer a síntese no quartus do led e ver a resposta do sensor
 <br>2.1- compilar
