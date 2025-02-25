@@ -1,5 +1,16 @@
-# dlp-tssp580-fpga
+<table align="center"><tr><td align="center" width="9999"><br>
+<img src="images/logoifsc.png" align="center" width="250" alt="Logo IFSC">
 
+# Implementação e simulação de um sistema de detecção de presença baseado em um sensor infravermelho TSSP580
+
+Instituto Federal de Educação, Ciência e Tecnologia de Santa Catarina<br>
+Campus Florianópolis<br>
+Departamento Acadêmico de Eletrônica<br>
+Dispositivo Lógico Programáveis</b>
+
+*Jonathan Chrysostomo Cabral Bonette*<br>*Matheus Rodrigues Cunha*
+
+</table>
 
 O projeto tem como objetivo a **implementação e simulação de um sistema de detecção de presença baseado em um sensor infravermelho TSSP580**. Vamos utilizar um FPGA DE10-Lite para gerar um sinal de modulação (burst) de aproximadamente 38 kHz, que aciona um LED emissor, conforme mostra a documentação oficial. Esse sinal modulado é então utilizado para estimular um sensor IR através de um LED, cuja resposta é processada por um filtro digital baseado em contagem no qual elimina ruídos transitórios e garante uma confiabilidade maior na detecção do sensor.<br>
 
