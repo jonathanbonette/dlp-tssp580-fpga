@@ -1,5 +1,37 @@
 # dlp-tssp580-fpga
 
+
+O projeto tem como objetivo a **implementação e simulação de um sistema de detecção de presença baseado em um sensor infravermelho TSSP580**. Vamos utilizar um FPGA DE10-Lite para gerar um sinal de modulação (burst) de aproximadamente 38 kHz, que aciona um LED emissor, conforme mostra a documentação oficial. Esse sinal modulado é então utilizado para estimular um sensor IR através de um LED, cuja resposta é processada por um filtro digital baseado em contagem no qual elimina ruídos transitórios e garante uma confiabilidade maior na detecção do sensor.<br>
+
+Em resumo o desenvolvimento foi dividido em pequenas implementações, cada parte com seu objetivo específico:<br>
+
+- O arquvivo principal ```led_tx.vhd```: é responsável pela base da implementação, no qual gera a portadora de 38 kHz e um sinal de burst para simular o disparo do LED.<br>
+- O filtro digital ```filter.vhd```: baseado em contagem foi implementado para confirmar a detecção do sensor apenas quando o sinal de entrada permanecer em nível baixo por um número mínimo de ciclos, evitando falsos disparos devido a ruídos.<br>
+
+Posteriormente foram desenvolvidos diversos testbenches para as simulações:<br>
+- ```tb_led_tx.vhd```: O comportamento do burst em escala reduzida.<br>
+- ```tb_sensor.vhd```: A resposta do sensor ao burst.<br>
+- ```tb_noise.vhd```: A resposta do sensor ao burst com ruídos.<br>
+- ```tb_filter.vhd```: O desempenho do filtro digital na remoção de ruídos.<br>
+
+E por último o arquivo responsável pela implementação em FPGA ```de10lite.vhd```, integrado em um arquivo top-level e sintetizado no FPGA DE10-Lite, permitindo a verificação prática do sistema via osciloscópio.<br>
+
+Este repositório contém todos os arquivos de código, scripts de simulação e documentação do projeto, proporcionando uma visão completa desde a simulação em ambiente de desenvolvimento (VSCode/ModelSim/Quartus) até a implementação real em hardware.<br>
+
+
+#
+
+#
+
+#
+
+#
+
+#
+
+
+
+
 **- Modelsim Simulation:**<br>
 ![img](images/simul_testbench_7_pulses.PNG)	
 
