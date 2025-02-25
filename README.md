@@ -20,42 +20,63 @@ O projeto tem como objetivo implementar e simular um sistema de detecção de pr
 
 </table>
 
-## Índice
-1. [Introdução](#introdução)
-2. [Introdução](#introdução)
-3. [Revisão Bibliográfica e Fundamentação Teórica](#revisão-bibliográfica-e-fundamentação-teórica)
-4. [Metodologia e Estrutura do Projeto](#metodologia-e-estrutura-do-projeto)
-5. [Implementação](#implementação)
-6. [Síntese e Implementação no FPGA](#síntese-e-implementação-no-fpga)
-7. [Resultados e Discussão](#resultados-e-discussão)
-8. [Conclusão e Trabalhos Futuros](#conclusão-e-trabalhos-futuros)
-9. [Referências](#referências)
-10. [Apêndices](#apêndices)
+## Introdução
 
-# Introdução
-Como descrito, o projeto tem como objetivo a **implementação e simulação de um sistema de detecção de presença baseado em um sensor infravermelho TSSP580**. Vai ser utilizado um FPGA DE10-Lite para gerar um sinal de modulação (burst) de aproximadamente 38 kHz, que aciona um LED emissor, conforme mostra a documentação oficial. Esse sinal modulado é então utilizado para estimular um sensor IR através de um LED, na qual a resposta é processada por um filtro digital baseado em contagem no qual elimina ruídos transitórios e garante uma confiabilidade maior na detecção do sensor.<br>
+O projeto tem como objetivo a **implementação e simulação de um sistema de detecção de presença baseado em um sensor infravermelho TSSP580**. Vai ser utilizado um FPGA DE10-Lite para gerar um sinal de modulação (burst) de aproximadamente 38 kHz, que aciona um LED emissor, conforme mostra a documentação oficial. Esse sinal modulado é então utilizado para estimular um sensor IR através de um LED, na qual a resposta é processada por um filtro digital baseado em contagem no qual elimina ruídos transitórios e garante uma confiabilidade maior na detecção do sensor.<br>
 
 Em resumo o desenvolvimento foi dividido em pequenas implementações, cada parte com seu objetivo específico:<br>
 
-- O arquvivo principal ```led_tx.vhd```: é responsável pela base da implementação, no qual gera a portadora de 38 kHz e um sinal de burst para simular o disparo do LED.<br>
-- O filtro digital ```filter.vhd```: baseado em contagem foi implementado para confirmar a detecção do sensor apenas quando o sinal de entrada permanecer em nível baixo por um número mínimo de ciclos, evitando falsos disparos devido a ruídos.<br>
+### Etapas do Projeto:
 
-Posteriormente foram desenvolvidos diversos testbenches para as simulações:<br>
-- ```tb_led_tx.vhd```: O comportamento do burst em escala reduzida.<br>
-- ```tb_sensor.vhd```: A resposta do sensor ao burst.<br>
-- ```tb_noise.vhd```: A resposta do sensor ao burst com ruídos.<br>
-- ```tb_filter.vhd```: O desempenho do filtro digital na remoção de ruídos.<br>
+**Etapa 1 – Simulação do Módulo LED:** <br>
+Implementação da lógica para gerar o sinal modulado (burst) com uma portadora de 38 kHz.
 
-E por último o arquivo responsável pela implementação em FPGA ```de10lite.vhd```, integrado em um arquivo top-level e sintetizado no FPGA DE10-Lite, permitindo a verificação prática do sistema via osciloscópio.<br>
+- Desenvolvimento do módulo [led_tx.vhd](vscode/led_tx.vhd).<br>
+- Simulação com o testbench [tb_led_tx.vhd](vscode/tb_led_tx.vhd).
+- Execução do script [tb_led_tx.do](vscode/tb_led_tx.do).
+- **todo: adicionar foto do burst**
+
+**Etapa 2 – Síntese do LED no FPGA e Testes de Bancada:** <br>
+Implementação do arquivo top-level para a síntese e implementação do sistema no FPGA DE10-Lite. Integra os módulos do LED, sensor e filtro, e mapeia os sinais para os pinos físicos.
+
+- Compilação e síntese do projeto no Quartus [de10_lite.vhd](quartus/de10_lite.vhd).
+- **todo: adicionar foto do quartus**
+- Montagem física do sensor e do LED no FPGA DE10-Lite.
+<p align="center">
+  <img src="images/fpga_1.jpeg" align="center" width="600" alt="Montagem">
+</p>
+- Verificação do sinal via osciloscópio.
+<p align="center">
+  <img src="images/scope_2.png" align="center" width="600" alt="Osciloscópio">
+</p>
+
+**Etapa 3 – Simulação do Sensor e dos Ruídos:** <br>
+Implementação dos testbenchs para simular a resposta do sensor IR ao sinal de burst e simular ruídos no sinal do sensor, permitindo a avaliação do comportamento em condições adversas.
+
+Desenvolvimento dos testbenches [tb_sensor.vhd](vscode/tb_sensor.vhd) e [tb_noise.vhd](vscode/tb_noise.vhd) para simular a resposta do sensor ao burst e aos ruídos e execução dos scripts [tb_noise.vhd](vscode/tb_noise.do) e [tb_noise.vhd](vscode/tb_noise.do). 
+- **todo: adicionar foto da resposta ao led**
+- **todo: adicionar foto do noise**
+
+**Etapa 4 – Implementação do Filtro Digital:** <br>
+Implementação do filtro digital baseado em contagem tem por objetivo eliminar os ruídos do sensor.
+
+- Desenvolvimento do módulo [filter.vhd](vscode/filter.do) com a lógica de filtro por contagem.
+- Simulação com o testbench [tb_filter.vhd](vscode/tb_filter.vhd).
+- Execução do script [tb_filter.do](vscode/tb_filter.do).
+- - **todo: adicionar foto do filtro**
 
 Este repositório contém todos os arquivos de código, scripts de simulação e documentação do projeto, proporcionando uma visão completa desde a simulação em ambiente de desenvolvimento (VSCode/ModelSim/Quartus) até a implementação real em hardware.<br>
 
-#
+
+
+
+
 
 
 
 
 #
+
 
 #
 
