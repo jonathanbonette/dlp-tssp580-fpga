@@ -1,26 +1,19 @@
-<table align="center"><tr><td align="center" width="9999"><br>
-<img src="images/logoifsc.png" align="center" width="250" alt="Logo IFSC">
+<table align="center"><tr><td align="center" width="9999">
 
 # Implementação e simulação de um sistema de detecção de presença baseado em um sensor infravermelho TSSP580
-
-Instituto Federal de Educação, Ciência e Tecnologia de Santa Catarina<br>
-Campus Florianópolis<br>
+  
+Instituto Federal de Educação, Ciência e Tecnologia de Santa Catarina Campus Florianópolis<br>
 Departamento Acadêmico de Eletrônica<br>
 Dispositivo Lógico Programáveis</b>
 
 *Jonathan Chrysostomo Cabral Bonette*<br>*Matheus Rodrigues Cunha*
+</table>
 
 #
 
 A utilização de sensores infravermelhos (IR) em aplicações de presença e segurança tem se tornado cada vez mais comum dada sua capacidade de detectar objetos com alta sensibilidade e rapidez, mesmo em ambientes com baixa luminosidade, esses sensores são utilizados em diversas aplicações, como sistemas de alarme, controle de iluminação, detectores de movimento em segurança e interfaces interativas.
 
 Porém em sistemas reais, os sensores IR frequentemente enfrentam desafios decorrentes de ruídos ambientais e interferências de luz ambiente, o que pode comprometer a precisão da detecção. Para reduzir esses problemas, técnicas de modulação e filtragem digital são essenciais. A modulação – no caso deste projeto, a geração de uma portadora de 38 kHz – permite que o sensor seja sensível somente aos sinais modulados, rejeitando grande parte das interferências. Além disso, a implementação de um filtro digital baseado em contagem assegura que somente sinais persistentes (indicativos de uma detecção verdadeira) sejam processados, descartando os ruídos que talvez podem ocorrer durante o burst.
-
-O projeto tem como objetivo implementar e simular um sistema de detecção de presença utilizando o sensor infravermelho TSSP580, utilizando um FPGA DE10-Lite para gerar um sinal de modulação (burst) que aciona um LED emissor, estimulando o sensor IR, assim a resposta do sensor é então processada por um filtro que confirma uma detecção real e assim eliminando os falsos disparos causados por ruídos.
-
-</table>
-
-## Introdução
 
 O projeto tem como objetivo a **implementação e simulação de um sistema de detecção de presença baseado em um sensor infravermelho TSSP580**. Vai ser utilizado um FPGA DE10-Lite para gerar um sinal de modulação (burst) de aproximadamente 38 kHz, que aciona um LED emissor, conforme mostra a documentação oficial. Esse sinal modulado é então utilizado para estimular um sensor IR através de um LED, na qual a resposta é processada por um filtro digital baseado em contagem no qual elimina ruídos transitórios e garante uma confiabilidade maior na detecção do sensor.<br>
 
@@ -34,7 +27,9 @@ Implementação da lógica para gerar o sinal modulado (burst) com uma portadora
 - Desenvolvimento do módulo [led_tx.vhd](vscode/led_tx.vhd).<br>
 - Simulação com o testbench [tb_led_tx.vhd](vscode/tb_led_tx.vhd).
 - Execução do script [tb_led_tx.do](vscode/tb_led_tx.do).
-- **todo: adicionar foto do burst**
+<p align="center">
+  <img src="images/modelsim_burst.png" align="center" width="600" alt="Burst">
+</p>
 
 **Etapa 2 – Síntese do LED no FPGA e Testes de Bancada:** <br>
 Implementação do arquivo top-level para a síntese e implementação do sistema no FPGA DE10-Lite. Integra os módulos do LED, sensor e filtro, e mapeia os sinais para os pinos físicos.
@@ -53,9 +48,16 @@ Implementação do arquivo top-level para a síntese e implementação do sistem
 **Etapa 3 – Simulação do Sensor e dos Ruídos:** <br>
 Implementação dos testbenchs para simular a resposta do sensor IR ao sinal de burst e simular ruídos no sinal do sensor, permitindo a avaliação do comportamento em condições adversas.
 
-Desenvolvimento dos testbenches [tb_sensor.vhd](vscode/tb_sensor.vhd) e [tb_noise.vhd](vscode/tb_noise.vhd) para simular a resposta do sensor ao burst e aos ruídos e execução dos scripts [tb_noise.vhd](vscode/tb_noise.do) e [tb_noise.vhd](vscode/tb_noise.do). 
-- **todo: adicionar foto da resposta ao led**
-- **todo: adicionar foto do noise**
+- Desenvolvimento do testbench [tb_sensor.vhd](vscode/tb_sensor.vhd) para simular a resposta do sensor ao burst e seu script de execução [tb_sensor.do](vscode/tb_sensor.do).
+<p align="center">
+  <img src="images/modelsim_sensor.png" align="center" width="600" alt="Sensor">
+</p>
+
+- Desenvolvimento do testbench [tb_noise.vhd](vscode/tb_noise.vhd) para simular os ruídos e execução dos scripts e seu script de execução [tb_noise.do](vscode/tb_noise.do). 
+
+<p align="center">
+  <img src="images/modelsim_noise.png" align="center" width="600" alt="Noise">
+</p>
 
 **Etapa 4 – Implementação do Filtro Digital:** <br>
 Implementação do filtro digital baseado em contagem tem por objetivo eliminar os ruídos do sensor.
@@ -63,14 +65,9 @@ Implementação do filtro digital baseado em contagem tem por objetivo eliminar 
 - Desenvolvimento do módulo [filter.vhd](vscode/filter.do) com a lógica de filtro por contagem.
 - Simulação com o testbench [tb_filter.vhd](vscode/tb_filter.vhd).
 - Execução do script [tb_filter.do](vscode/tb_filter.do).
-- - **todo: adicionar foto do filtro**
-
-Este repositório contém todos os arquivos de código, scripts de simulação e documentação do projeto, proporcionando uma visão completa desde a simulação em ambiente de desenvolvimento (VSCode/ModelSim/Quartus) até a implementação real em hardware.<br>
-
-
-
-
-
+<p align="center">
+  <img src="images/modelsim_filter.png" align="center" width="600" alt="Filter">
+</p>
 
 
 
