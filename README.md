@@ -9,8 +9,6 @@ Dispositivo Lógico Programáveis</b>
 *Jonathan Chrysostomo Cabral Bonette*<br>*Matheus Rodrigues Cunha*
 </table>
 
-#
-
 A utilização de sensores infravermelhos (IR) em aplicações de presença e segurança tem se tornado cada vez mais comum dada sua capacidade de detectar objetos com alta sensibilidade e rapidez, mesmo em ambientes com baixa luminosidade, esses sensores são utilizados em diversas aplicações, como sistemas de alarme, controle de iluminação, detectores de movimento em segurança e interfaces interativas.
 
 Porém em sistemas reais, os sensores IR frequentemente enfrentam desafios decorrentes de ruídos ambientais e interferências de luz ambiente, o que pode comprometer a precisão da detecção. Para reduzir esses problemas, técnicas de modulação e filtragem digital são essenciais. A modulação – no caso deste projeto, a geração de uma portadora de 38 kHz – permite que o sensor seja sensível somente aos sinais modulados, rejeitando grande parte das interferências. Além disso, a implementação de um filtro digital baseado em contagem assegura que somente sinais persistentes (indicativos de uma detecção verdadeira) sejam processados, descartando os ruídos que talvez podem ocorrer durante o burst.
@@ -37,22 +35,22 @@ Simulação no ModelSim:<br>
 </p>
 
 **Etapa 2 – Síntese do LED no FPGA e Testes de Bancada:** <br>
-Implementação do arquivo top-level para a síntese e implementação do sistema no FPGA DE10-Lite. Integra os módulos do LED, sensor e filtro, e mapeia os sinais para os pinos físicos.
+Para alimentar os módulos que foram projetados para funcionar com 1 MHz, usamos uma PLL (divisor de clock) para converter a frequência que usamos na implementação de 50 MHz. Durante a verificação da prática usamos um osciloscópio para monitorar os sinais. Conectamos o cabo do osciloscópio no pino definido ARDUINO_IO(3) e foi possível observar os pulsos de 38 kHz gerados durante o burst, confirmando o funcionamento do módulo LED e a resposta do sensor conforme mostram as imagens abaixo.
 
-- Compilação e síntese do projeto no Quartus [de10_lite.vhd](quartus/de10_lite.vhd).
+- Implementação e síntese do projeto no Quartus [de10_lite.vhd](quartus/de10_lite.vhd).
 - Montagem física do sensor e do LED no FPGA DE10-Lite.
 
 <p align="center">
   <img src="images/fpga_1.jpeg" align="center" width="600" alt="Montagem">
 </p>
 
-Verificação do Funcionamente (Imagem retirada do osciloscópio):<br>
+Verificação do Funcionamento (Osciloscópio):<br>
 
 <p align="center">
   <img src="images/scope_2.png" align="center" width="600" alt="Osciloscópio">
 </p>
 
-Verificação do Funcionamento (Ruído visto no teste prático):<br>
+Verificação do Funcionamento do Ruído (Osciloscópio):<br>
 
 <p align="center">
   <img src="images/scope_6.png" align="center" width="600" alt="Osciloscópio">
@@ -94,3 +92,14 @@ Simulação no ModelSim:<br>
 <p align="center">
   <img src="images/m_filter.png" align="center" width="1000" alt="Filter">
 </p>
+
+Verificação do Funcionamento (Osciloscópio):<br>
+
+<p align="center">
+  <img src="images/scope_0.png" align="center" width="600" alt="Osciloscópio">
+</p>
+
+### Comparação entre Simulação e Hardware:
+Os resultados simulados no ModelSim, mostraram o comportamento esperado do sistema: o módulo LED gerava pulsos de 38 kHz durante o burst, e o sensor, após filtragem digital, confirmava a detecção apenas se o sinal permanecesse em nível baixo por um tempo suficiente. Nos testes em bancada, as medições com o osciloscópio confirmaram a presença dos pulsos de 38 kHz e a eficácia do filtro na rejeição de ruídos transitórios.<br>
+
+O filtro digital implementado por contagem demonstrou bom funcionamento na eliminação dos ruídos mantendo a saída desejável (em nível alto) quando os ruídos ocorriam e somente mudando para nível baixo quando a detecção era confirmada por 10 ciclos consecutivos e isso é importante o bom funcioanmento para evitar falsos disparos em aplicações reais.<br>
