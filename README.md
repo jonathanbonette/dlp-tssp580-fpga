@@ -131,8 +131,6 @@ Se o sensor mudar de estado rapidamente por um tempo inferior ao definido, a sa√
 
 ![Captura de tela 2025-02-25 182609](https://github.com/user-attachments/assets/f7621ae1-54ea-4c1c-b75f-ddef0019004a)
 
-<br>4.1- testar no oscilosc√≥pio (opcional)
-
 <br>5- organizar o git
 <br>5.1- renomear arquivos
 <br>5.2- organizar folders
