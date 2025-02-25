@@ -15,6 +15,10 @@ Porém em sistemas reais, os sensores IR frequentemente enfrentam desafios decor
 
 O projeto tem como objetivo a **implementação e simulação de um sistema de detecção de presença baseado em um sensor infravermelho TSSP580**. Vai ser utilizado um FPGA DE10-Lite para gerar um sinal de modulação (burst) de aproximadamente 38 kHz, que aciona um LED emissor, conforme mostra a documentação oficial. Esse sinal modulado é então utilizado para estimular um sensor IR através de um LED, na qual a resposta é processada por um filtro digital baseado em contagem no qual elimina ruídos transitórios e garante uma confiabilidade maior na detecção do sensor.<br>
 
+<p align="center">
+  <img src="images/sensor.png" align="center" width="1000" alt="Sensor">
+</p>
+
 Em resumo o desenvolvimento foi dividido em pequenas implementações, cada parte com seu objetivo específico:<br>
 
 ### Etapas do Projeto:
@@ -39,6 +43,14 @@ Para alimentar os módulos que foram projetados para funcionar com 1 MHz, usam
 
 - Implementação e síntese do projeto no Quartus [de10_lite.vhd](quartus/de10_lite.vhd).
 - Montagem física do sensor e do LED no FPGA DE10-Lite.
+
+Exemplo do Datasheet:<br>
+
+<p align="center">
+  <img src="images/example_sensor.png" align="center" width="500" alt="Sensor">
+</p>
+
+Montagem em Bancada:<br>
 
 <p align="center">
   <img src="images/fpga_1.jpeg" align="center" width="600" alt="Montagem">
