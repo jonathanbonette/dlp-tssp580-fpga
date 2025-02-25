@@ -27,6 +27,7 @@ Implementação da lógica para gerar o sinal modulado (burst) com uma portadora
 - Desenvolvimento do módulo [led_tx.vhd](vscode/led_tx.vhd).<br>
 - Simulação com o testbench [tb_led_tx.vhd](vscode/tb_led_tx.vhd).
 - Execução do script [tb_led_tx.do](vscode/tb_led_tx.do).
+
 <p align="center">
   <img src="images/modelsim_burst.png" align="center" width="600" alt="Burst">
 </p>
@@ -35,12 +36,14 @@ Implementação da lógica para gerar o sinal modulado (burst) com uma portadora
 Implementação do arquivo top-level para a síntese e implementação do sistema no FPGA DE10-Lite. Integra os módulos do LED, sensor e filtro, e mapeia os sinais para os pinos físicos.
 
 - Compilação e síntese do projeto no Quartus [de10_lite.vhd](quartus/de10_lite.vhd).
-- **todo: adicionar foto do quartus**
 - Montagem física do sensor e do LED no FPGA DE10-Lite.
+
 <p align="center">
   <img src="images/fpga_1.jpeg" align="center" width="600" alt="Montagem">
 </p>
+
 - Verificação do sinal via osciloscópio.
+
 <p align="center">
   <img src="images/scope_2.png" align="center" width="600" alt="Osciloscópio">
 </p>
@@ -49,6 +52,7 @@ Implementação do arquivo top-level para a síntese e implementação do sistem
 Implementação dos testbenchs para simular a resposta do sensor IR ao sinal de burst e simular ruídos no sinal do sensor, permitindo a avaliação do comportamento em condições adversas.
 
 - Desenvolvimento do testbench [tb_sensor.vhd](vscode/tb_sensor.vhd) para simular a resposta do sensor ao burst e seu script de execução [tb_sensor.do](vscode/tb_sensor.do).
+
 <p align="center">
   <img src="images/modelsim_sensor.png" align="center" width="600" alt="Sensor">
 </p>
@@ -65,6 +69,7 @@ Implementação do filtro digital baseado em contagem tem por objetivo eliminar 
 - Desenvolvimento do módulo [filter.vhd](vscode/filter.do) com a lógica de filtro por contagem.
 - Simulação com o testbench [tb_filter.vhd](vscode/tb_filter.vhd).
 - Execução do script [tb_filter.do](vscode/tb_filter.do).
+
 <p align="center">
   <img src="images/modelsim_filter.png" align="center" width="600" alt="Filter">
 </p>
