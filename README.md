@@ -22,11 +22,15 @@ Em resumo o desenvolvimento foi dividido em pequenas implementações, cada part
 ### Etapas do Projeto:
 
 **Etapa 1 – Simulação do Módulo LED:** <br>
-Implementação da lógica para gerar o sinal modulado (burst) com uma portadora de 38 kHz.
+
+Primeiramente implementamos o módulo ```led_tx.vhd``` para gerar uma portadora de 38 kHz e controlar o burst do LED, permitindo que o sinal seja transmitido.
+O código gera um sinal infravermelho modulado a 38 kHz, ativando e desativando o LED IR em períodos específicos. Ele funciona com dois contadores: o primeiro gera a portadora de 38 kHz alternando o sinal a cada 13 ciclos, garantindo a frequência correta. O segundo contador controla a modulação do sinal.
 
 - Desenvolvimento do módulo [led_tx.vhd](vscode/led_tx.vhd).<br>
 - Simulação com o testbench [tb_led_tx.vhd](vscode/tb_led_tx.vhd).
 - Execução do script [tb_led_tx.do](vscode/tb_led_tx.do).
+
+Simulação no ModelSim:<br>
 
 <p align="center">
   <img src="images/modelsim_burst.png" align="center" width="600" alt="Burst">
@@ -42,144 +46,51 @@ Implementação do arquivo top-level para a síntese e implementação do sistem
   <img src="images/fpga_1.jpeg" align="center" width="600" alt="Montagem">
 </p>
 
-- Verificação do sinal via osciloscópio.
+Verificação do Funcionamente (Imagem retirada do osciloscópio):<br>
 
 <p align="center">
   <img src="images/scope_2.png" align="center" width="600" alt="Osciloscópio">
 </p>
 
-**Etapa 3 – Simulação do Sensor e dos Ruídos:** <br>
-Implementação dos testbenchs para simular a resposta do sensor IR ao sinal de burst e simular ruídos no sinal do sensor, permitindo a avaliação do comportamento em condições adversas.
+Verificação do Funcionamento (Ruído visto no teste prático):<br>
 
-- Desenvolvimento do testbench [tb_sensor.vhd](vscode/tb_sensor.vhd) para simular a resposta do sensor ao burst e seu script de execução [tb_sensor.do](vscode/tb_sensor.do).
+<p align="center">
+  <img src="images/scope_6.png" align="center" width="600" alt="Osciloscópio">
+</p>
+
+**Etapa 3 – Simulação do Sensor:** <br>
+O arquivo ```tb_sensor.vhd``` é um testbench usado para simular o comportamento do módulo led_tx. Ele gera um clock de 1 MHz e aplica estímulos ao circuito para verificar seu funcionamento. O sinal led_out representa a saída do transmissor de LED IR, que gera pulsos modulados em 38 kHz durante o burst.
+
+- Simulação com testbench [tb_sensor.vhd](vscode/tb_sensor.vhd).
+- Execução do script [tb_sensor.do](vscode/tb_sensor.do).
+
+Simulação no ModelSim:<br>
 
 <p align="center">
   <img src="images/modelsim_sensor.png" align="center" width="600" alt="Sensor">
 </p>
 
-- Desenvolvimento do testbench [tb_noise.vhd](vscode/tb_noise.vhd) para simular os ruídos e execução dos scripts e seu script de execução [tb_noise.do](vscode/tb_noise.do). 
+**Etapa 4 – Simulação dos Ruídos:** <br>
+O código cria um sinal de clock de 1 MHz, um reset inicial e gera uma sequência de ruídos na entrada do sensor para verificar sua funcionalidade. O processo sensor_process gera sinais com ruído, alternando entre 0 e 1 por pequenos períodos.
+
+- Simulação com testbench [tb_noise.vhd](vscode/tb_noise.vhd).
+- Execução do script [tb_noise.do](vscode/tb_noise.do). 
+
+Simulação no ModelSim:<br>
 
 <p align="center">
   <img src="images/modelsim_noise.png" align="center" width="600" alt="Noise">
 </p>
 
-**Etapa 4 – Implementação do Filtro Digital:** <br>
-Implementação do filtro digital baseado em contagem tem por objetivo eliminar os ruídos do sensor.
+**Etapa 5 – Implementação do Filtro Digital:** <br>
+O módulo ```filter.vhd``` implementa um filtro digital para remover ruídos na entrada do sensor. Foi utilizado um contador para verificar se o sinal de entrada se mantém estável por um número mínimo de ciclos antes de atualizar a saída filtrada. Foi definido um THRESHOLD para ver quantos ciclos consecutivos o sinal deve permanecer alterado antes de ser validado como uma nova leitura. Se o sensor mudar de estado rapidamente por um tempo inferior ao definido, a saída permanecerá inalterada, reduzindo a influência de ruídos. O contador é sensível à borda de subida do clock.
 
 - Desenvolvimento do módulo [filter.vhd](vscode/filter.do) com a lógica de filtro por contagem.
 - Simulação com o testbench [tb_filter.vhd](vscode/tb_filter.vhd).
 - Execução do script [tb_filter.do](vscode/tb_filter.do).
 
+Simulação no ModelSim:<br>
+
 <p align="center">
   <img src="images/modelsim_filter.png" align="center" width="600" alt="Filter">
 </p>
-
-
-
-
-#
-
-
-#
-
-#
-
-#
-
-
-**- Modelsim Simulation:**<br>
-![img](images/simul_testbench_7_pulses.PNG)	
-
-**- Optical Test:**<br>
-![img](images/optical_test_signal.PNG)	
-
-```code ref: test code: optical_test_signal.vhd```
-
-**Cronograma:**<br>
-<br>1- Fazer a simulação no vscode do led
-<br>1.1- led_tx.vhd
-<br>1.2- tb_led_tx.vhd
-<br>1.3- tb_led_tx.do
-
-Primeiramente implementamos módulo led_tx.vhd para gerar uma portadora de 38 kHz e controlar o burst do LED, permitindo que o sinal seja transmitido.
-O código led_tx.vhd gera um sinal infravermelho modulado a 38 kHz, ativando e desativando o LED IR em períodos específicos. Ele funciona com dois contadores: o primeiro gera a portadora de 38 kHz alternando o sinal a cada 13 ciclos, garantindo a frequência correta. O segundo contador controla a modulação do sinal.
-Na próxima figura visualizamos a simulação no ModelSim.
-
-![Captura de tela 2025-02-25 150307](https://github.com/user-attachments/assets/3870c294-ac85-4bae-87cf-3780f8b6246b)
-
-<br>2- Simulação da resposta do sensor
-
-**Cronograma:**<br>
-<br>1- Fazer a simulação no vscode do sensor
-<br>1.1- tb_sensor.vhd
-<br>1.2- tb_Sensor.do
-
-O arquivo tb_sensor.vhd é um testbench usado para simular o comportamento do módulo led_tx. Ele gera um clock de 1 MHz e aplica estímulos ao 
-circuito para verificar seu funcionamento. O sinal led_out representa a saída do transmissor de LED IR, que gera pulsos modulados em 38 kHz 
-durante o burst.
-
-![sensor_out](https://github.com/user-attachments/assets/02de8326-28f8-456a-ae89-7d21209f37b3)
-
-<br>2.1- compilar
-<br>2.2- montagem do sensor físico
-<br>2.3- verificação no osciloscópio
-
-Verificação do Funcionamente(Imagem retirada do osciloscópio)
-![scope_0](https://github.com/user-attachments/assets/b08aa266-10a1-44cd-b8d0-0b00e99ee09e)
-
-Verificação do Funcionamento(Ruído visto no teste prático)
-
-![scope_6](https://github.com/user-attachments/assets/bf93eec8-13ab-4792-8c67-206eab7314e8)
-
-
-<br>3- fazer a simulação no vscode do sensor
-<br>3.1- fazer uma simulação do sinal do sensor (led ja feito, ou seja, a resposta)
-<br>3.2- fazer uma simulação simulando o ruído do sensor
-
-O código cria um sinal de clock de 1 MHz, um reset inicial e gera uma sequência de ruídos na entrada do 
-sensor para verificar sua funcionalidade. O processo sensor_process gera sinais com ruído, alternando entre 0 e 1 por pequenos períodos.
-
-![Captura de tela 2025-02-25 181513](https://github.com/user-attachments/assets/ca869584-6cfe-4e2b-ae89-322db2c77712)
-
-<br>4- Implementar um filtro para remover rídos
-
-**Cronograma:**<br>
-<br>1- Fazer a simulação no vscode do filtro
-<br>1.1- filter.vhd
-<br>1.2- tb_filter.vhd
-<br>1.3- tb_filter.do
-
-O módulo filter.vhd implementa um filtro digital para remover ruídos na entrada do sensor. Foi utilizado um contador para verificar se o sinal de entrada se mantém estável por um número mínimo de ciclos antes de atualizar a saída filtrada. Foi definido um THRESHOLD para ver quantos ciclos consecutivos o sinal deve permanecer alterado antes de ser validado como uma nova leitura. 
-Se o sensor mudar de estado rapidamente por um tempo inferior ao definido, a saída permanecerá inalterada, reduzindo a influência de ruídos. O contador é sensível à borda de subida do clock.
-
-![Captura de tela 2025-02-25 182609](https://github.com/user-attachments/assets/f7621ae1-54ea-4c1c-b75f-ddef0019004a)
-
-<br>5- organizar o git
-<br>5.1- renomear arquivos
-<br>5.2- organizar folders
-
-<br>6- documentação
-<br>6.1- documentar os códigos
-<br>6.2- criar documentação estrutural do projeto
-<br>6.3- criar estrutura de folders para ser commitado no repositório da disciplina
-
-**files org**:<br>
-<br>```tb_led_tx.do``` : relacionado ao led, criando o burst de 38khz
-<br>```tb_led_tx.vhd``` : testbench simulando o comportamento do burst em menor escala
-<br>```led_tx.vhd``` : arquivo principal referente a implementação do burst
-
----
-
-<br>```tb_sensor.do``` : relacionado ao sensor, criando a resposta ao burst, ou seja, o sensor de presença
-<br>```tb_sensor.vhd``` : testbench simulando o comportamento do sensor em resposta ao burst em menor escala
-
----
-
-<br>```tb_noise.do``` : relacionado ao ruído
-<br>```tb_noise.vhd``` : testbench simulando ruídos durante a simulação em menor escala
-
----
-
-<br>```tb_filter.do``` : relacionado ao filtro, removendo o ruído apresentado durante a simulação
-<br>```tb_filter.vhd``` : testbench simulando o comportamento do filtro removendo ou tratando os ruídos
-<br>```filter.vhd``` : arquivo principal referente a implementação do filtro por contagem
