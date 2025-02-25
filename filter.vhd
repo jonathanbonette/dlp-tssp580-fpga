@@ -4,8 +4,7 @@ use ieee.numeric_std.all;
 
 entity filter is
   generic(
-    THRESHOLD : natural := 20;  -- Número de ciclos consecutivos necessários para confirmar 0
-    MAX_COUNT : natural := 20   -- Valor máximo que o contador pode atingir (saturação)
+    THRESHOLD : integer := 20  -- Número de ciclos consecutivos necessários para confirmar 0
   );
   port(
     clk             : in  std_logic;
@@ -16,7 +15,8 @@ entity filter is
 end filter;
 
 architecture Behavioral of filter is
-  signal counter : natural := 0;
+  signal counter : integer := 0;
+  signal filtered_state : std_logic := '1'; 
 begin
   process(clk, rst)
   begin
@@ -24,24 +24,21 @@ begin
       counter         <= 0;
       sensor_filtered <= '1';  -- Estado normal: sensor inativo = '1'
     elsif rising_edge(clk) then
-      if sensor_in = '0' then
-        -- Incrementa o contador até saturar
-        if counter < MAX_COUNT then
+      if sensor_in /= filtered_state then
+      
+        if counter < THRESHOLD - 1 then 
           counter <= counter + 1;
+        else
+          filtered_state <= sensor_in;
+          counter <= 0;
         end if;
-      else  -- sensor_in = '1'
-        -- Decrementa o contador lentamente (não reseta imediatamente)
-        if counter > 0 then
-          counter <= counter - 1;
-        end if;
+      else  
+        
+        counter <= 0;
       end if;
       
-      -- Define a saída: se o contador atingir o threshold, consideramos 0
-      if counter >= THRESHOLD then
-        sensor_filtered <= '0';
-      else
-        sensor_filtered <= '1';
-      end if;
+      
+      sensor_filtered <= filtered_state;
     end if;
   end process;
 end Behavioral;

@@ -7,3 +7,4 @@ work/
 .project
 vsim.wlf
 wave.ps
+modelsim.ini
