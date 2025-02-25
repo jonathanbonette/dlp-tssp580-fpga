@@ -1,26 +1,19 @@
-<table align="center"><tr><td align="center" width="9999"><br>
-<img src="images/logoifsc.png" align="center" width="250" alt="Logo IFSC">
+<table align="center"><tr><td align="center" width="9999">
 
 # Implementação e simulação de um sistema de detecção de presença baseado em um sensor infravermelho TSSP580
-
-Instituto Federal de Educação, Ciência e Tecnologia de Santa Catarina<br>
-Campus Florianópolis<br>
+  
+Instituto Federal de Educação, Ciência e Tecnologia de Santa Catarina Campus Florianópolis<br>
 Departamento Acadêmico de Eletrônica<br>
 Dispositivo Lógico Programáveis</b>
 
 *Jonathan Chrysostomo Cabral Bonette*<br>*Matheus Rodrigues Cunha*
+</table>
 
 #
 
 A utilização de sensores infravermelhos (IR) em aplicações de presença e segurança tem se tornado cada vez mais comum dada sua capacidade de detectar objetos com alta sensibilidade e rapidez, mesmo em ambientes com baixa luminosidade, esses sensores são utilizados em diversas aplicações, como sistemas de alarme, controle de iluminação, detectores de movimento em segurança e interfaces interativas.
 
 Porém em sistemas reais, os sensores IR frequentemente enfrentam desafios decorrentes de ruídos ambientais e interferências de luz ambiente, o que pode comprometer a precisão da detecção. Para reduzir esses problemas, técnicas de modulação e filtragem digital são essenciais. A modulação – no caso deste projeto, a geração de uma portadora de 38 kHz – permite que o sensor seja sensível somente aos sinais modulados, rejeitando grande parte das interferências. Além disso, a implementação de um filtro digital baseado em contagem assegura que somente sinais persistentes (indicativos de uma detecção verdadeira) sejam processados, descartando os ruídos que talvez podem ocorrer durante o burst.
-
-O projeto tem como objetivo implementar e simular um sistema de detecção de presença utilizando o sensor infravermelho TSSP580, utilizando um FPGA DE10-Lite para gerar um sinal de modulação (burst) que aciona um LED emissor, estimulando o sensor IR, assim a resposta do sensor é então processada por um filtro que confirma uma detecção real e assim eliminando os falsos disparos causados por ruídos.
-
-</table>
-
-## Introdução
 
 O projeto tem como objetivo a **implementação e simulação de um sistema de detecção de presença baseado em um sensor infravermelho TSSP580**. Vai ser utilizado um FPGA DE10-Lite para gerar um sinal de modulação (burst) de aproximadamente 38 kHz, que aciona um LED emissor, conforme mostra a documentação oficial. Esse sinal modulado é então utilizado para estimular um sensor IR através de um LED, na qual a resposta é processada por um filtro digital baseado em contagem no qual elimina ruídos transitórios e garante uma confiabilidade maior na detecção do sensor.<br>
 
