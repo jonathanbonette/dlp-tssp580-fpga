@@ -33,7 +33,7 @@ O código gera um sinal infravermelho modulado a 38 kHz, ativando e desativando 
 Simulação no ModelSim:<br>
 
 <p align="center">
-  <img src="images/modelsim_burst" align="center" width="600" alt="Burst">
+  <img src="images/m_burst.png" align="center" width="600" alt="Burst">
 </p>
 
 **Etapa 2 – Síntese do LED no FPGA e Testes de Bancada:** <br>
@@ -67,7 +67,7 @@ O arquivo ```tb_sensor.vhd``` é um testbench usado para simular o comportamento
 Simulação no ModelSim:<br>
 
 <p align="center">
-  <img src="images/modelsim_sensor" align="center" width="600" alt="Sensor">
+  <img src="images/m_sensor.png" align="center" width="600" alt="Sensor">
 </p>
 
 **Etapa 4 – Simulação dos Ruídos:** <br>
@@ -79,7 +79,7 @@ O código cria um sinal de clock de 1 MHz, um reset inicial e gera uma sequênci
 Simulação no ModelSim:<br>
 
 <p align="center">
-  <img src="images/modelsim_noise" align="center" width="600" alt="Noise">
+  <img src="images/m_noise.png" align="center" width="600" alt="Noise">
 </p>
 
 **Etapa 5 – Implementação do Filtro Digital:** <br>
@@ -92,5 +92,5 @@ O módulo ```filter.vhd``` implementa um filtro digital para remover ruídos na 
 Simulação no ModelSim:<br>
 
 <p align="center">
-  <img src="images/modelsim_filter" align="center" width="600" alt="Filter">
+  <img src="images/m_filter.png" align="center" width="600" alt="Filter">
 </p>
