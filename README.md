@@ -79,7 +79,8 @@ Este repositório contém todos os arquivos de código, scripts de simulação e
 <br>1.3- tb_led_tx.do
 
 Primeiramente implementamos módulo led_tx.vhd para gerar uma portadora de 38 kHz e controlar o burst do LED, permitindo que o sinal seja transmitido.
-O código led_tx.vhd gera um sinal infravermelho modulado a 38 kHz, ativando e desativando o LED IR em períodos específicos. Ele funciona com dois contadores: o primeiro gera a portadora de 38 kHz alternando o sinal a cada 13 ciclos, garantindo a frequência correta. O segundo contador controla a modulação do sinal, ativando o LED por 500 ms e desligando pelos próximos 500 ms. 
+O código led_tx.vhd gera um sinal infravermelho modulado a 38 kHz, ativando e desativando o LED IR em períodos específicos. Ele funciona com dois contadores: o primeiro gera a portadora de 38 kHz alternando o sinal a cada 13 ciclos, garantindo a frequência correta. O segundo contador controla a modulação do sinal.
+Na próxima figura visualizamos a simulação no ModelSim.
 
 ![Captura de tela 2025-02-25 150307](https://github.com/user-attachments/assets/3870c294-ac85-4bae-87cf-3780f8b6246b)
 
@@ -92,7 +93,18 @@ O código led_tx.vhd gera um sinal infravermelho modulado a 38 kHz, ativando e d
 <br>3.1- fazer uma simulação do sinal do sensor (led ja feito, ou seja, a resposta)
 <br>3.2- fazer uma simulação simulando o ruído do sensor
 
+O código cria um sinal de clock de 1 MHz, um reset inicial e gera uma sequência de ruídos na entrada do 
+sensor para verificar sua funcionalidade. O processo sensor_process gera sinais com ruído, alternando entre 0 e 1 por pequenos períodos.
+
+![Captura de tela 2025-02-25 181513](https://github.com/user-attachments/assets/ca869584-6cfe-4e2b-ae89-322db2c77712)
+
 <br>4- implementar um filtro na implementação
+
+O módulo filter.vhd implementa um filtro digital para remover ruídos na entrada do sensor. Foi utilizado um contador para verificar se o sinal de entrada se mantém estável por um número mínimo de ciclos antes de atualizar a saída filtrada. Foi definido um THRESHOLD para ver quantos ciclos consecutivos o sinal deve permanecer alterado antes de ser validado como uma nova leitura. 
+Se o sensor mudar de estado rapidamente por um tempo inferior ao definido, a saída permanecerá inalterada, reduzindo a influência de ruídos. O contador é sensível à borda de subida do clock.
+
+![Captura de tela 2025-02-25 182609](https://github.com/user-attachments/assets/f7621ae1-54ea-4c1c-b75f-ddef0019004a)
+
 <br>4.1- testar no osciloscópio (opcional)
 
 <br>5- organizar o git
